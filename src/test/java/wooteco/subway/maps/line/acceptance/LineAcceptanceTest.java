@@ -39,7 +39,7 @@ public class LineAcceptanceTest extends AcceptanceTest {
     void getLines() {
         // given
         ExtractableResponse<Response> createResponse1 = LineAcceptanceStep.지하철_노선_등록되어_있음("신분당선", "RED", 900);
-        ExtractableResponse<Response> createResponse2 = LineAcceptanceStep.지하철_노선_등록되어_있음("2호선", "GREEN", 0);
+        ExtractableResponse<Response> createResponse2 = LineAcceptanceStep.지하철_노선_등록되어_있음("2호선", "GREEN");
 
         // when
         ExtractableResponse<Response> response = LineAcceptanceStep.지하철_노선_목록_조회_요청();

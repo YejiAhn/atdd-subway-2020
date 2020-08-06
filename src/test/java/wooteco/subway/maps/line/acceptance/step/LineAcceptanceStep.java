@@ -21,6 +21,10 @@ public class LineAcceptanceStep {
         return 지하철_노선_생성_요청(name, color, extraFare);
     }
 
+    public static ExtractableResponse<Response> 지하철_노선_등록되어_있음(String name, String color) {
+        return 지하철_노선_생성_요청(name, color, 0);
+    }
+
     public static ExtractableResponse<Response> 지하철_노선_생성_요청(String name, String color, int extraFare) {
         Map<String, String> params = new HashMap<>();
         params.put("name", name);
