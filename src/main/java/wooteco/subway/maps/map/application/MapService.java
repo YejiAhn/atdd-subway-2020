@@ -1,8 +1,11 @@
 package wooteco.subway.maps.map.application;
 
+import java.util.Collections;
+import java.util.Set;
 import org.springframework.transaction.annotation.Transactional;
 import wooteco.subway.maps.line.application.LineService;
 import wooteco.subway.maps.line.domain.Line;
+import wooteco.subway.maps.line.domain.LineStation;
 import wooteco.subway.maps.line.dto.LineResponse;
 import wooteco.subway.maps.line.dto.LineStationResponse;
 import wooteco.subway.maps.map.domain.PathType;
@@ -48,13 +51,19 @@ public class MapService {
         SubwayPath subwayPath = pathService.findPath(lines, source, target, type);
         Map<Long, Station> stations = stationService.findStationsByIds(subwayPath.extractStationId());
 
+        Set<Long> lineIdsInPath = subwayPath.getAllLineIds();
+        Set<Integer> extraFaresInPath = lineIdsInPath.stream()
+                .map(lineId -> lineService.findLineById(lineId))
+                .map(Line::getExtraFare)
+                .collect(Collectors.toSet());
+        subwayPath.addExtraFareByLine(extraFaresInPath);
         return PathResponseAssembler.assemble(subwayPath, stations);
     }
 
     private Map<Long, Station> findStations(List<Line> lines) {
         List<Long> stationIds = lines.stream()
                 .flatMap(it -> it.getStationInOrder().stream())
-                .map(it -> it.getStationId())
+                .map(LineStation::getStationId)
                 .collect(Collectors.toList());
 
         return stationService.findStationsByIds(stationIds);
