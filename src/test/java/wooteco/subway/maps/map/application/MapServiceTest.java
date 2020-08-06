@@ -81,6 +81,7 @@ public class MapServiceTest {
         when(lineService.findLines()).thenReturn(lines);
         when(pathService.findPath(anyList(), anyLong(), anyLong(), any())).thenReturn(subwayPath);
         when(stationService.findStationsByIds(anyList())).thenReturn(stations);
+        when(lineService.findLineById(any())).thenReturn(TestObjectUtils.createLine(3L, "3호선", "ORANGE", 0));
 
         PathResponse pathResponse = mapService.findPath(1L, 3L, PathType.DISTANCE);
 

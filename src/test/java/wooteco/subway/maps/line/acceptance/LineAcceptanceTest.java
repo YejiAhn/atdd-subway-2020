@@ -70,7 +70,7 @@ public class LineAcceptanceTest extends AcceptanceTest {
         ExtractableResponse<Response> createResponse = LineAcceptanceStep.지하철_노선_등록되어_있음(name, "RED", 900);
 
         // when
-        ExtractableResponse<Response> response = LineAcceptanceStep.지하철_노선_수정_요청(createResponse, "구분당선", "BLUE");
+        ExtractableResponse<Response> response = LineAcceptanceStep.지하철_노선_수정_요청(createResponse, "구분당선", "BLUE", 900);
 
         // then
         LineAcceptanceStep.지하철_노선_수정됨(response);
