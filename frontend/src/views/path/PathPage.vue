@@ -220,6 +220,11 @@ export default {
     ...mapActions([SEARCH_PATH, FETCH_STATIONS]),
     async onSearchResult() {
       try {
+        const stationIds = {
+          source: this.path.source,
+          target: this.path.target
+        }
+        await this.searchPath(stationIds);
       } catch (e) {
         this.showSnackbar(SNACKBAR_MESSAGES.COMMON.FAIL)
         console.error(e)
